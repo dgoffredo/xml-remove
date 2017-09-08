@@ -1,6 +1,6 @@
 xml-remove
 ==========
-Filter out XML elements matching any of a set of xpath queries.
+Filter out XML elements matching any of a set of XPath queries.
 
 Why
 ---
@@ -9,9 +9,9 @@ only those whose `<ServiceId>` child had one of several values.
 
 What
 ----
-`xml-remove.py` takes as command line arguments one or more [xpath][xpath]
+`xml-remove.py` takes as command line arguments one or more [XPath][xpath]
 queries and uses them to filter XML from standard input into standard output.
-XML elements that match any of the provided xpath queries are omitted from the
+XML elements that match any of the provided XPath queries are omitted from the
 output.
 
 `xml-remove.py` mostly leaves the rest of the XML untouched, except that it
@@ -29,8 +29,7 @@ usage: xml-remove.py [-h] [--no-declaration] [xpath [xpath ...]]
 Remove elements from XML (stdin -> stdout).
 
 positional arguments:
-  xpath             xpath query whose matches will be removed
-
+  xpath             XPath query whose matches will be remove
 optional arguments:
   -h, --help        show this help message and exit
   --no-declaration  omit XML declaration

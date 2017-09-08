@@ -17,7 +17,7 @@ parser.add_argument('--no-declaration', action='store_true',
                     help='omit XML declaration')
 
 parser.add_argument('xpath', nargs='*',
-                    help='xpath query whose matches will be removed')
+                    help='XPath query whose matches will be removed')
 
 options = parser.parse_args()
 
