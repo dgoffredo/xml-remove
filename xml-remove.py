@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2.7
 
 # python2 is used because the python3 (3.5) version of lxml that I tried had
 # what I think is a bug: no matter what combination of encoding or other
