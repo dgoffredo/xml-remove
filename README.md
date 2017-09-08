@@ -1,2 +1,92 @@
-# xml-remove
-Filter out XML elements matching any of a set of xpath queries
+xml-remove
+==========
+Filter out XML elements matching any of a set of xpath queries.
+
+Why
+---
+I had a bunch of `<Proxy>` elements to remove from a configuration file, but
+only those whose `<ServiceId>` child had one of several values.
+
+What
+----
+`xml-remove.py` takes as command line arguments one or more [xpath][xpath]
+queries and uses them to filter XML from standard input into standard output.
+XML elements that match any of the provided xpath queries are omitted from the
+output.
+
+`xml-remove.py` mostly leaves the rest of the XML untouched, except that it
+writes its own XML declaration (e.g. `<?xml version='1.0' encoding='UTF-8'?>`)
+and uses double quotes in attribute values (except in the XML declaration,
+where it uses single quotes). This behavior, though, is at the discretion of
+the implementation of `lxml.etree`, on which the script depends.
+
+Usage
+-----
+### `--help`
+```
+usage: xml-remove.py [-h] [--no-declaration] [xpath [xpath ...]]
+
+Remove elements from XML (stdin -> stdout).
+
+positional arguments:
+  xpath             xpath query whose matches will be removed
+
+optional arguments:
+  -h, --help        show this help message and exit
+  --no-declaration  omit XML declaration
+```
+
+### Example
+
+```
+$ cat example/input.xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<Configuration>
+    <weird> white
+  space!
+        </weird>
+
+    <tag attr1='single quotes' attr2="double quotes"    />
+
+  <thing/>
+    <thing foo='bar'>hi
+    </thing>
+
+  <!-- This is a comment -->
+
+  <thing>stuff</thing>
+
+</Configuration>
+$ echo "Now we'll filter out the last <thing> element.\n"
+Now we'll filter out the last <thing> element.
+
+$ ./xml-remove.py '/Configuration/thing[text()="stuff"]' <example/input.xml
+<?xml version='1.0' encoding='UTF-8'?>
+<Configuration>
+    <weird> white
+  space!
+        </weird>
+
+    <tag attr1="single quotes" attr2="double quotes"/>
+
+  <thing/>
+    <thing foo="bar">hi
+    </thing>
+
+  <!-- This is a comment -->
+
+</Configuration>$ echo "It's gone.\n"
+It's gone.
+
+$
+```
+
+More
+----
+`xml-remove` depends on:
+
+- python2.7 (e.g. the debian package `python2.7`)
+- [lxml][lxml] for python 2.7 (e.g. the debian package `python-lxml`)
+
+[xpath]: https://www.w3.org/TR/xpath/
+[lxml]: http://lxml.de/
