@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Configuration>
+    <weird> white
+  space!
+        </weird>
+
+    <tag attr1="single quotes" attr2="double quotes"/>
+
+  <thing/>
+    <thing foo="bar">hi
+    </thing>
+
+  <!-- This is a comment -->
+
+</Configuration>
