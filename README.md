@@ -14,11 +14,22 @@ queries and uses them to filter XML from standard input into standard output.
 XML elements that match any of the provided XPath queries are omitted from the
 output.
 
-`xml-remove.py` mostly leaves the rest of the XML untouched, except that it
-writes its own XML declaration (e.g. `<?xml version='1.0' encoding='UTF-8'?>`)
-and uses double quotes in attribute values (except in the XML declaration,
-where it uses single quotes). This behavior, though, is at the discretion of
-the implementation of `lxml.etree`, on which the script depends.
+`xml-remove.py` mostly leaves the rest of the XML untouched, except that since
+the entire input is read into an XML document and then printed back out, there
+are some minor formatting changes:
+
+- The script writes its own XML declaration (e.g.
+  `<?xml version='1.0' encoding='UTF-8'?>`) unless instructed to omit it.
+- It uses double quotes in attribute values (except in the XML declaration,
+  where it uses single quotes).
+- It collapses redudant whitespace between attributes.
+- It collapses empty elements into one-tag elements, e.g. `<foo></foo>` becomes
+  `<foo/>`.
+
+Notably, though, the whitespace between elements is preserved.
+
+This behavior is at the discretion of the implementation of `lxml.etree`, which
+the script uses to do its XML parsing, XPath selection, and XML printing.
 
 Usage
 -----
