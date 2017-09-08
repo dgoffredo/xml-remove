@@ -31,8 +31,8 @@ Notably, though, the whitespace between elements is preserved.
 This behavior is at the discretion of the implementation of `lxml.etree`, which
 the script uses to do its XML parsing, XPath selection, and XML printing.
 
-Usage
------
+How
+---
 ### `--help`
 ```
 usage: xml-remove.py [-h] [--no-declaration] [xpath [xpath ...]]
